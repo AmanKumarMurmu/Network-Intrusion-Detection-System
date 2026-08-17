@@ -88,8 +88,8 @@ export function AuthGate() {
               id="password"
               type="password"
               required
-              minLength={8}
               value={password}
+
               onChange={(e) => setPassword(e.target.value)}
               className="mt-1 w-full rounded-md border border-border bg-background/60 px-3 py-2 font-mono text-sm outline-none focus:border-ring"
             />
