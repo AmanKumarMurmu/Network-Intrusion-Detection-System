@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Radar, ShieldCheck } from "lucide-react";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
 
 export function useSupabaseSession() {
   const [session, setSession] = useState<Session | null>(null);
@@ -107,14 +106,6 @@ export function AuthGate() {
           </button>
         </form>
 
-        <button
-          onClick={() =>
-            lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin })
-          }
-          className="mt-3 w-full rounded-md border border-border bg-surface-2 px-3 py-2 font-mono text-xs uppercase tracking-wider transition-colors hover:border-ring"
-        >
-          Continue with Google
-        </button>
 
         <button
           onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
