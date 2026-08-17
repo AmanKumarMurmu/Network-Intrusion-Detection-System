@@ -14,7 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      security_events: {
+        Row: {
+          attack_type: string
+          byte_count: number
+          confidence: number
+          created_at: string
+          dst_ip: string
+          dst_port: number | null
+          features: Json
+          id: string
+          occurred_at: string
+          packet_count: number
+          protocol: string
+          risk_level: string
+          sensor: string
+          src_ip: string
+          src_port: number | null
+          verdict: string
+        }
+        Insert: {
+          attack_type?: string
+          byte_count?: number
+          confidence?: number
+          created_at?: string
+          dst_ip: string
+          dst_port?: number | null
+          features?: Json
+          id?: string
+          occurred_at?: string
+          packet_count?: number
+          protocol?: string
+          risk_level?: string
+          sensor?: string
+          src_ip: string
+          src_port?: number | null
+          verdict?: string
+        }
+        Update: {
+          attack_type?: string
+          byte_count?: number
+          confidence?: number
+          created_at?: string
+          dst_ip?: string
+          dst_port?: number | null
+          features?: Json
+          id?: string
+          occurred_at?: string
+          packet_count?: number
+          protocol?: string
+          risk_level?: string
+          sensor?: string
+          src_ip?: string
+          src_port?: number | null
+          verdict?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
