@@ -287,18 +287,4 @@ Do not use the project to monitor, scan, or analyze networks without proper auth
 
 ---
 
-## ⭐ Contributing
 
-Contributions, improvements, and security-focused ideas are welcome.
-
-1. Fork the repository.
-2. Create a feature branch.
-3. Implement your changes.
-4. Test your changes.
-5. Submit a pull request.
-
----
-
-## 📜 License
-
-This project is intended for educational and research purposes. Add an appropriate open-source license to the repository if you plan to distribute the project publicly.
