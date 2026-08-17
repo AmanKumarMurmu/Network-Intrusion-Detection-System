@@ -1,6 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-import { createClient } from "@supabase/supabase-js";
-import type { Database } from "@/integrations/supabase/types";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 export type SecurityEvent = {
   id: string;
@@ -19,24 +18,10 @@ export type SecurityEvent = {
   sensor: string;
 };
 
-export const listSecurityEvents = createServerFn({ method: "GET" }).handler(
-  async (): Promise<SecurityEvent[]> => {
-    const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
-    const supabasePublic = createClient<Database>(process.env["SUPABASE_URL"]!, key, {
-      auth: { persistSession: false, autoRefreshToken: false },
-      global: {
-        fetch: (input, init) => {
-          const h = new Headers(init?.headers);
-          if (key.startsWith("sb_") && h.get("Authorization") === `Bearer ${key}`) {
-            h.delete("Authorization");
-          }
-          h.set("apikey", key);
-          return fetch(input, { ...init, headers: h });
-        },
-      },
-    });
-
-    const { data, error } = await supabasePublic
+export const listSecurityEvents = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<SecurityEvent[]> => {
+    const { data, error } = await context.supabase
       .from("security_events")
       .select(
         "id, occurred_at, src_ip, dst_ip, src_port, dst_port, protocol, verdict, attack_type, risk_level, confidence, packet_count, byte_count, sensor",
@@ -46,5 +31,4 @@ export const listSecurityEvents = createServerFn({ method: "GET" }).handler(
 
     if (error) throw new Error(error.message);
     return (data ?? []) as SecurityEvent[];
-  },
-);
+  });

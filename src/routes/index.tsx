@@ -1,17 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { Radar, RefreshCw, Terminal } from "lucide-react";
+import { queryOptions, useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { LogOut, Radar, RefreshCw, Terminal } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import { listSecurityEvents } from "@/lib/events.functions";
+import { AuthGate, useSupabaseSession } from "@/components/nids/auth-gate";
 import { StatTiles } from "@/components/nids/stat-tiles";
 import { TrendCharts } from "@/components/nids/trend-charts";
 import { EventsTable } from "@/components/nids/events-table";
 import { AlertsFeed } from "@/components/nids/alerts-feed";
-
-const eventsQuery = queryOptions({
-  queryKey: ["security-events"],
-  queryFn: () => listSecurityEvents(),
-  refetchInterval: 20_000,
-});
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,8 +27,7 @@ export const Route = createFileRoute("/")({
       },
     ],
   }),
-  loader: ({ context }) => context.queryClient.ensureQueryData(eventsQuery),
-  component: Dashboard,
+  component: Console,
   errorComponent: () => (
     <main className="flex min-h-screen items-center justify-center p-6">
       <div className="panel max-w-md p-6 text-center">
@@ -49,8 +45,33 @@ export const Route = createFileRoute("/")({
   ),
 });
 
+function Console() {
+  const { session, ready } = useSupabaseSession();
+
+  if (!ready) {
+    return (
+      <main className="flex min-h-screen items-center justify-center">
+        <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          Initializing console…
+        </p>
+      </main>
+    );
+  }
+
+  if (!session) return <AuthGate />;
+  return <Dashboard />;
+}
+
 function Dashboard() {
-  const { data: events, isFetching, refetch } = useSuspenseQuery(eventsQuery);
+  const fetchEvents = useServerFn(listSecurityEvents);
+  const { data, isFetching, refetch } = useQuery(
+    queryOptions({
+      queryKey: ["security-events"],
+      queryFn: () => fetchEvents(),
+      refetchInterval: 20_000,
+    }),
+  );
+  const events = data ?? [];
   const latest = events[0]?.occurred_at;
 
   return (
@@ -74,7 +95,7 @@ function Dashboard() {
         <div className="flex items-center gap-3">
           <div className="text-right">
             <p className="label-mono">Last event</p>
-            <p className="font-mono text-xs">
+            <p className="font-mono text-xs" suppressHydrationWarning>
               {latest ? new Date(latest).toLocaleString() : "awaiting traffic"}
             </p>
           </div>
@@ -84,6 +105,13 @@ function Dashboard() {
           >
             <RefreshCw className={`size-3.5 ${isFetching ? "animate-spin" : ""}`} aria-hidden />
             Sync
+          </button>
+          <button
+            onClick={() => supabase.auth.signOut()}
+            className="inline-flex items-center gap-2 rounded-md border border-border bg-surface-2 px-3 py-2 font-mono text-xs uppercase tracking-wider text-foreground transition-colors hover:border-ring"
+          >
+            <LogOut className="size-3.5" aria-hidden />
+            Sign out
           </button>
         </div>
       </header>
