@@ -23,7 +23,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Machine-learning classified network flows, security alerts and attack trend analytics in one console.",
+          "Live intrusion detection dashboard: ML traffic verdicts, port scan, DoS/DDoS and brute-force alerts with risk levels and 24h attack trends.",
       },
     ],
   }),

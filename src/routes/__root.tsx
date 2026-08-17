@@ -77,14 +77,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Sentinel NIDS — AI Network Intrusion Detection" },
+      { title: "Sentinel NIDS — AI Intrusion Detection Console" },
       {
         name: "description",
         content:
-          "Machine-learning network intrusion detection console: live traffic verdicts, attack types, risk levels and trends.",
+          "Live intrusion detection dashboard: ML traffic verdicts, port scan, DoS/DDoS and brute-force alerts with risk levels and 24h attack trends.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Sentinel NIDS — AI Intrusion Detection Console" },
+      { name: "twitter:title", content: "Sentinel NIDS — AI Intrusion Detection Console" },
+      { property: "og:description", content: "Live intrusion detection dashboard: ML traffic verdicts, port scan, DoS/DDoS and brute-force alerts with risk levels and 24h attack trends." },
+      { name: "twitter:description", content: "Live intrusion detection dashboard: ML traffic verdicts, port scan, DoS/DDoS and brute-force alerts with risk levels and 24h attack trends." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/724ccf9480871c3434ec158b14f3dfc2/id-preview-29f1a748--8355d3ae-5683-4505-af32-185336e71c68.lovable.app-1786949378943.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/724ccf9480871c3434ec158b14f3dfc2/id-preview-29f1a748--8355d3ae-5683-4505-af32-185336e71c68.lovable.app-1786949378943.png" },
     ],
     links: [
       {
