@@ -1,84 +1,304 @@
-# Sentinel AI
+# 🛡️ Sentinel AI
 
-AI-Powered Network Intrusion Detection System
+### AI-Powered Network Intrusion Detection & Security Monitoring System
 
-Tech stack:
+**Sentinel AI** is a cybersecurity-focused Network Intrusion Detection System (NIDS) designed to analyze network traffic, identify suspicious activities, classify potential attacks, and provide security insights through an interactive monitoring dashboard.
 
-  1 Python
+The system combines **network traffic analysis, machine learning, security alerting, and visualization** to provide a simplified SOC-style security monitoring experience.
 
-  2 Scikit-learn
+---
 
-  3 Pandas
+## 🚀 Key Features
 
-  4 NumPy
+* 🔍 **Network Traffic Analysis** — Capture and analyze network traffic and connection patterns.
+* 🧩 **Feature Extraction** — Extract relevant features from network packets for security analysis.
+* 🤖 **ML-Based Detection** — Classify network activity as normal or potentially malicious.
+* 🚨 **Threat Detection** — Identify suspicious activities such as:
 
-  5 Scapy
+  * Port Scanning
+  * DoS/DDoS Patterns
+  * Brute-Force Attempts
+  * Suspicious Network Connections
+* 📊 **Security Dashboard** — Visualize network activity and detected threats.
+* 🌐 **IP & Connection Visibility** — Display source IP, destination IP, protocol, and related traffic information.
+* ⚠️ **Risk Classification** — Categorize detected events based on their potential severity.
+* 🔔 **Security Alerts** — Generate alerts when suspicious activity is detected.
+* 🗄️ **Event Storage** — Store security events for analysis and monitoring.
+* 📈 **Threat Analytics** — Visualize attack frequency and security trends over time.
 
-  6 Flask/Streamlit
+---
 
-  7 SQLite
+## 🧠 How It Works
 
-  8 Linux
-
-  9 Wireshark
-
-Features:
-
-  1 Capture/analyze network traffic
-
-  2 Extract features from packets
-
-  3 Detect attacks such as:
-
-	Port scanning
-
-	DoS/DDoS patterns
-
-	Brute-force attempts
-
-	Suspicious connections
-
-ML model classifies traffic as Normal / Attack
-
-Dashboard displays:
-
-  1 Source IP
-
-  2 Destination IP
-
-  3 Protocol
-
-  4 Attack type
-
-  5 Risk level
-
-  6 Timestamp
-
-Generate security alerts
-
-Store security events in a database
-
-Add graphs showing attack trends
-
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://threat-sniffer-ai.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/8355d3ae-5683-4505-af32-185336e71c68).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+```text
+                Network Traffic
+                       │
+                       ▼
+              Traffic Capture
+                       │
+                       ▼
+              Feature Extraction
+                       │
+                       ▼
+             Machine Learning Model
+                       │
+                       ▼
+             ┌─────────┴─────────┐
+             │                   │
+          Normal              Suspicious
+             │                   │
+             ▼                   ▼
+       Normal Event        Threat Detection
+                                 │
+                                 ▼
+                         Risk Classification
+                                 │
+                                 ▼
+                         Security Alert
+                                 │
+                                 ▼
+                         Monitoring Dashboard
 ```
+
+---
+
+## 🛠️ Technology Stack
+
+| Technology            | Purpose                                      |
+| --------------------- | -------------------------------------------- |
+| **Python**            | Core security and data-processing logic      |
+| **Scikit-learn**      | Machine learning and traffic classification  |
+| **Pandas**            | Dataset processing and analysis              |
+| **NumPy**             | Numerical and feature processing             |
+| **Scapy**             | Network packet capture and analysis          |
+| **Flask / Streamlit** | Web-based monitoring interface               |
+| **SQLite**            | Security event storage                       |
+| **Linux**             | Security testing and development environment |
+| **Wireshark**         | Network traffic inspection and analysis      |
+
+---
+
+## 🔐 Detected Threat Categories
+
+### Port Scanning
+
+Identifies patterns where a source attempts to probe multiple ports or services on a host.
+
+### DoS/DDoS Patterns
+
+Detects abnormal traffic patterns that may indicate attempts to overwhelm a network service.
+
+### Brute-Force Attempts
+
+Identifies repeated connection or authentication attempts that may indicate credential-based attacks.
+
+### Suspicious Connections
+
+Highlights unusual network communication based on traffic characteristics and detection rules.
+
+---
+
+## 📊 Security Dashboard
+
+The dashboard provides visibility into detected network activity, including:
+
+* Source IP Address
+* Destination IP Address
+* Network Protocol
+* Attack/Threat Type
+* Risk Level
+* Timestamp
+* Security Event History
+* Attack Trends
+* Alert Statistics
+
+This provides a simplified **SOC-style monitoring interface** for analyzing security events.
+
+---
+
+## 🤖 Machine Learning Pipeline
+
+Sentinel AI follows a basic machine-learning security pipeline:
+
+```text
+Raw Network Data
+       ↓
+Data Cleaning
+       ↓
+Feature Extraction
+       ↓
+Feature Processing
+       ↓
+Model Training
+       ↓
+Traffic Classification
+       ↓
+Threat Detection
+       ↓
+Security Alert
+```
+
+The ML component can be trained using labeled network-security datasets and used to classify previously unseen traffic based on learned patterns.
+
+---
+
+## 📁 Suggested Project Structure
+
+```text
+sentinel-ai/
+│
+├── data/
+│   └── datasets/
+│
+├── models/
+│   └── intrusion_model.pkl
+│
+├── src/
+│   ├── packet_capture.py
+│   ├── feature_extraction.py
+│   ├── detection.py
+│   └── alerts.py
+│
+├── dashboard/
+│   └── app.py
+│
+├── database/
+│   └── security_events.db
+│
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
+
+---
+
+## ⚙️ Installation
+
+### 1. Clone the repository
+
+```bash
+git clone <your-repository-url>
+cd sentinel-ai
+```
+
+### 2. Create a virtual environment
+
+```bash
+python -m venv venv
+```
+
+Activate it on Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+On Linux:
+
+```bash
+source venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Start the application
+
+For a Streamlit application:
+
+```bash
+streamlit run app.py
+```
+
+For a Flask application:
+
+```bash
+python app.py
+```
+
+---
+
+## 🧪 Security Testing
+
+The system can be evaluated using:
+
+* Public intrusion-detection datasets
+* Controlled network traffic
+* Simulated scanning activity
+* Benign and suspicious traffic samples
+* Packet captures analyzed with Wireshark
+
+> **Note:** Security testing should only be performed on systems and networks where you have explicit authorization.
+
+---
+
+## 📈 Future Improvements
+
+Planned improvements include:
+
+* [ ] Real-time packet monitoring
+* [ ] Advanced anomaly detection
+* [ ] Multiple ML models for comparison
+* [ ] IP reputation integration
+* [ ] Email/Telegram security notifications
+* [ ] Role-based authentication
+* [ ] Detailed incident investigation
+* [ ] Automated security reports
+* [ ] MITRE ATT&CK technique mapping
+* [ ] Integration with SIEM platforms
+* [ ] Docker-based deployment
+
+---
+
+## 🎯 Project Objectives
+
+The main objectives of Sentinel AI are to:
+
+1. Detect suspicious network behavior.
+2. Apply machine learning to network-security analysis.
+3. Provide centralized visibility into security events.
+4. Generate actionable security alerts.
+5. Demonstrate practical concepts used in **IDS, SOC monitoring, network security, and threat detection**.
+
+---
+
+## 🌐 Live Demo
+
+**Sentinel AI:** `https://threat-sniffer-ai.lovable.app`
+
+---
+
+## 👨‍💻 Project Highlights
+
+Sentinel AI demonstrates practical knowledge of:
+
+**Cybersecurity • Network Security • Intrusion Detection • Machine Learning • Packet Analysis • Threat Detection • Security Monitoring • Python • Linux • Database Management**
+
+---
+
+## ⚠️ Disclaimer
+
+Sentinel AI is an educational cybersecurity project intended for authorized security testing, research, and learning purposes.
+
+Do not use the project to monitor, scan, or analyze networks without proper authorization.
+
+---
+
+## ⭐ Contributing
+
+Contributions, improvements, and security-focused ideas are welcome.
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Implement your changes.
+4. Test your changes.
+5. Submit a pull request.
+
+---
+
+## 📜 License
+
+This project is intended for educational and research purposes. Add an appropriate open-source license to the repository if you plan to distribute the project publicly.
