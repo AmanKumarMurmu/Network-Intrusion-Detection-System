@@ -2,11 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 
 const eventSchema = z.object({
-  occurred_at: z.string().datetime().optional(),
+  occurred_at: z.string().datetime().default(() => new Date().toISOString()),
   src_ip: z.string().min(3).max(64),
   dst_ip: z.string().min(3).max(64),
-  src_port: z.number().int().min(0).max(65535).nullable().optional(),
-  dst_port: z.number().int().min(0).max(65535).nullable().optional(),
+  src_port: z.number().int().min(0).max(65535).nullable().default(null),
+  dst_port: z.number().int().min(0).max(65535).nullable().default(null),
   protocol: z.string().min(1).max(16).default("TCP"),
   verdict: z.enum(["normal", "attack"]).default("attack"),
   attack_type: z.string().min(1).max(64).default("Unknown"),
@@ -56,7 +56,6 @@ export const Route = createFileRoute("/api/public/ingest")({
         const { error } = await supabaseAdmin.from("security_events").insert(
           parsed.data.events.map((e) => ({
             ...e,
-            occurred_at: e.occurred_at ?? new Date().toISOString(),
             features: e.features as never,
           })),
         );
